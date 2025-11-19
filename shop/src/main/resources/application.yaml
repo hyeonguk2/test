@@ -16,4 +16,4 @@ spring:
         jdbc:
           time_zone: UTC
 api:
-  v1: "/api/v1"
+  v1: /api/v1
