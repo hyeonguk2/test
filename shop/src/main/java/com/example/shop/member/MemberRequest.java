@@ -1,4 +1,7 @@
 package com.example.shop.member;
+
+import com.example.shop.member.application.dto.MemberCommand;
+
 public record MemberRequest(
         String email,
         String name,
@@ -7,4 +10,7 @@ public record MemberRequest(
         String saltKey,
         String flag
 ) {
+    public MemberCommand toCommand() {
+        return new MemberCommand(email, name, password, phone, saltKey, flag);
+    }
 }
