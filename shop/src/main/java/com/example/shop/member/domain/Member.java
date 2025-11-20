@@ -1,12 +1,10 @@
-package com.example.shop.member;
+package com.example.shop.member.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.OffsetDateTime;
 import java.util.UUID;
 @Schema(description = "")
 @Data
@@ -38,7 +36,7 @@ public class Member {
     private UUID modifyId;
 
     @Column(name = "modify_dt", nullable = false)
-    private OffsetDateTime modifyDt;
+    private LocalDateTime modifyDt;
 
     @Column(name = "saltkey", nullable = false, length = 14)
     private String saltKey;
@@ -46,7 +44,7 @@ public class Member {
     @Column(name = "flag", length = 5)
     private String flag;
     public Member(){};
-    public Member(UUID id,
+    private Member(UUID id,
                   String email,
                   String name,
                   String password,
@@ -61,14 +59,21 @@ public class Member {
         this.saltKey = saltKey;
         this.flag = flag;
     }
-    public Member(String id,
-                  String email,
-                  String name,
-                  String password,
-                  String phone,
-                  String saltKey,
-                  String flag) {
-        this.id =UUID.fromString(id);
+    public static Member create(String email,
+                                String name,
+                                String password,
+                                String phone,
+                                String saltKey,
+                                String flag) {
+        return new Member(UUID.randomUUID(), email, name, password, phone, saltKey, flag);
+    }
+
+    public void updateInformation(String email,
+                                  String name,
+                                  String password,
+                                  String phone,
+                                  String saltKey,
+                                  String flag) {
         this.email = email;
         this.name = name;
         this.password = password;
@@ -88,7 +93,7 @@ public class Member {
             regDt = LocalDateTime.now();
         }
         if (modifyDt == null) {
-            modifyDt = OffsetDateTime.now();
+            modifyDt = LocalDateTime.now();
         }
         if (id == null) {
             id = UUID.randomUUID();
@@ -97,7 +102,7 @@ public class Member {
 
     @PreUpdate
     public void preUpdate() {
-        modifyDt = OffsetDateTime.now();
+        modifyDt = LocalDateTime.now();
         if (modifyId == null) {
             modifyId = id;
         }
