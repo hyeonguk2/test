@@ -11,6 +11,7 @@ import java.util.UUID;
  */
 public record ProductInfo(
         UUID id,
+        UUID sellerId,
         String name,
         String description,
         BigDecimal price,
@@ -18,11 +19,13 @@ public record ProductInfo(
         String status,
         LocalDateTime regDt,
         LocalDateTime modifyDt
+
 ) {
 
     public static ProductInfo from(Product product) {
         return new ProductInfo(
                 product.getId(),
+                product.getSellerId(),
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),
