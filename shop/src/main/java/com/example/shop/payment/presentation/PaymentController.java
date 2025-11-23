@@ -25,7 +25,7 @@ public class PaymentController {
     public ResponseEntity<List<PaymentInfo>> findAll(Pageable pageable) {return paymentService.findAll(pageable);}
 
     @Operation(summary="토스 결제 승인",description="토스 결제 완료 후 paymentKey/orderId/amount를 전달받아 결제를 승인한다")
-    @PostMapping
+    @PostMapping("/confirm")
     public ResponseEntity<PaymentInfo> confirm(@RequestBody PaymentRequest request){
         return paymentService.confirm(request.toCommand());
     }

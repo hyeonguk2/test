@@ -44,7 +44,7 @@ public class ProductController {
             summary = "상품 수정",
             description = "상품 정보를 수정한다"
     )
-    @PutMapping
+    @PutMapping("{id}")
     public ResponseEntity<ProductInfo> update(@PathVariable("id") UUID id,
                                               @RequestBody ProductRequest request) {
         return productService.update(id, request.toCommand());
@@ -54,7 +54,7 @@ public class ProductController {
             summary = "상품 삭제",
             description = "상품을 삭제한다."
     )
-    @DeleteMapping
+    @DeleteMapping("{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") UUID id) {
         return productService.delete(id);
     }
